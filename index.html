@@ -1,0 +1,1683 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forever Collective — Katalog</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ═══════════════ THEME TOKENS ═══════════════ */
+:root {
+  --serif: 'Cormorant Garamond', 'Georgia', serif;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --ease: cubic-bezier(0.16, 1, 0.32, 1);
+  --duration: 0.35s;
+  --radius: 6px;
+  --radius-lg: 10px;
+  --radius-xl: 16px;
+}
+
+/* LIGHT THEME (default) */
+[data-theme="light"] {
+  --bg: #f8f7f4;
+  --bg-warm: #ffffff;
+  --bg-card: #ffffff;
+  --bg-card-hover: #faf9f6;
+  --bg-surface: #f2f1ed;
+  --bg-overlay: rgba(248,247,244,0.92);
+  --text: #5a564e;
+  --text-dim: #9a958b;
+  --text-bright: #2a2824;
+  --text-heading: #1a1816;
+  --accent: #8a7d64;
+  --accent-dim: rgba(138,125,100,0.08);
+  --accent-hover: #6e634e;
+  --border: #e8e5de;
+  --border-hover: #d4d0c6;
+  --white-soft: #faf8f4;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03);
+  --card-shadow-hover: 0 4px 16px rgba(0,0,0,0.07), 0 8px 32px rgba(0,0,0,0.05);
+  --header-bg: rgba(248,247,244,0.92);
+  --logo-filter: none;
+  --mb-bg: #ffffff;
+  --mb-item-bg: #f8f7f4;
+  --lightbox-bg: rgba(0,0,0,0.85);
+  --swatch-border: rgba(0,0,0,0.08);
+  --scrollbar-thumb: #d4d0c6;
+  --tag-bg: #f0eeea;
+  --green-accent: #6a9a50;
+}
+
+/* DARK THEME */
+[data-theme="dark"] {
+  --bg: #111110;
+  --bg-warm: #15140f;
+  --bg-card: #1c1b17;
+  --bg-card-hover: #242319;
+  --bg-surface: #18170f;
+  --bg-overlay: rgba(8,8,6,0.88);
+  --text: #b5b0a4;
+  --text-dim: #7a756a;
+  --text-bright: #e8e4db;
+  --text-heading: #f2efe8;
+  --accent: #c8b898;
+  --accent-dim: rgba(200,184,152,0.15);
+  --accent-hover: #ddd0b4;
+  --border: #2a2820;
+  --border-hover: #3a3830;
+  --white-soft: #faf8f4;
+  --card-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  --card-shadow-hover: 0 12px 40px rgba(0,0,0,0.3);
+  --header-bg: rgba(17,17,16,0.9);
+  --logo-filter: invert(1);
+  --mb-bg: #15140f;
+  --mb-item-bg: #1c1b17;
+  --lightbox-bg: rgba(0,0,0,0.92);
+  --swatch-border: rgba(255,255,255,0.08);
+  --scrollbar-thumb: #2a2820;
+  --tag-bg: rgba(255,255,255,0.05);
+  --green-accent: #8ab870;
+}
+
+html { font-size: 15px; scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* ═══════════════ LOGIN ═══════════════ */
+#login-screen {
+  position: fixed; inset: 0; z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg);
+}
+#login-screen.hidden { display: none; }
+.login-box { text-align: center; max-width: 340px; width: 88%; }
+.login-logo img {
+  height: 28px;
+  filter: var(--logo-filter);
+  opacity: 0.9;
+  margin-bottom: 0.15rem;
+}
+.login-sub {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+}
+.login-box input {
+  width: 100%; padding: 0.8rem 1rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-bright);
+  font-size: 0.85rem; font-family: var(--sans);
+  outline: none;
+  transition: border-color var(--duration) var(--ease);
+  text-align: center;
+  letter-spacing: 0.1em;
+}
+.login-box input:focus { border-color: var(--accent); }
+.login-box input::placeholder { color: var(--text-dim); letter-spacing: 0.08em; }
+.login-btn {
+  width: 100%; margin-top: 1rem; padding: 0.75rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 0.72rem; font-family: var(--sans);
+  letter-spacing: 0.15em; text-transform: uppercase;
+  cursor: pointer;
+  transition: all var(--duration) var(--ease);
+}
+.login-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+.login-error { margin-top: 1rem; font-size: 0.75rem; color: #a06050; min-height: 1.2em; }
+.login-line { width: 40px; height: 1px; background: var(--border); margin: 0 auto 2rem; }
+
+/* ═══════════════ APP SHELL ═══════════════ */
+#app { display: none; }
+#app.visible { display: flex; flex-direction: column; min-height: 100vh; }
+
+/* ═══════════════ HEADER ═══════════════ */
+header {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2.5rem;
+  height: 60px;
+  background: var(--header-bg);
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  border-bottom: 1px solid var(--border);
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+.logo img {
+  height: 18px;
+  filter: var(--logo-filter);
+  opacity: 0.9;
+  transition: filter 0.4s ease;
+}
+.header-right { display: flex; align-items: center; gap: 0.75rem; }
+
+/* Theme Toggle */
+.theme-toggle {
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--text);
+  transition: all 0.25s ease;
+}
+.theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+.theme-toggle svg { width: 16px; height: 16px; }
+.theme-toggle .sun { display: none; }
+.theme-toggle .moon { display: block; }
+[data-theme="dark"] .theme-toggle .sun { display: block; }
+[data-theme="dark"] .theme-toggle .moon { display: none; }
+
+.moodboard-toggle {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.45rem 0.9rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  color: var(--text);
+  font-size: 0.72rem; font-family: var(--sans);
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all var(--duration) var(--ease);
+}
+.moodboard-toggle:hover { border-color: var(--accent); color: var(--accent); }
+.moodboard-toggle svg { opacity: 0.7; }
+.mb-count {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 18px; height: 18px; padding: 0 5px;
+  background: var(--accent);
+  color: var(--bg-warm);
+  font-size: 0.6rem; font-weight: 500;
+  border-radius: 100px;
+}
+.mb-count:empty { display: none; }
+
+/* ═══════════════ LAYOUT ═══════════════ */
+.main-layout { display: flex; flex: 1; }
+
+/* ═══════════════ CATEGORY TABS ═══════════════ */
+.cat-nav {
+  padding: 1.5rem 2.5rem 0;
+}
+.cat-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+}
+.cat-tab {
+  position: relative;
+  padding: 0.85rem 2rem;
+  background: none;
+  border: none;
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  letter-spacing: 0.01em;
+}
+.cat-tab:hover { color: var(--text-bright); }
+.cat-tab.active {
+  color: var(--text-heading);
+}
+.cat-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 1rem;
+  right: 1rem;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px 2px 0 0;
+}
+.cat-tab .cat-count {
+  font-family: var(--sans);
+  font-size: 0.62rem;
+  color: var(--text-dim);
+  margin-left: 0.4rem;
+  font-weight: 400;
+  vertical-align: middle;
+}
+
+/* ═══════════════ SIDEBAR (flower list within category) ═══════════════ */
+.sidebar {
+  width: 220px; min-width: 220px;
+  padding: 1.25rem 0;
+  border-right: 1px solid var(--border);
+  position: sticky; top: 60px;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  background: var(--bg);
+  transition: background-color 0.4s ease;
+}
+.sidebar-section { margin-bottom: 0.5rem; }
+.sidebar-label {
+  padding: 0 1.5rem;
+  font-size: 0.6rem; font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+}
+.nav-btn {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; padding: 0.45rem 1.5rem;
+  background: none; border: none;
+  text-align: left;
+  color: var(--text);
+  font-size: 0.8rem; font-family: var(--sans);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-left: 2px solid transparent;
+}
+.nav-btn:hover { color: var(--text-bright); background: var(--accent-dim); }
+.nav-btn.active {
+  color: var(--accent);
+  border-left-color: var(--accent);
+  background: var(--accent-dim);
+  font-weight: 500;
+}
+.nav-btn.all-btn {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+.nav-count { font-size: 0.65rem; color: var(--text-dim); font-variant-numeric: tabular-nums; }
+
+/* ═══════════════ CONTENT ═══════════════ */
+.content { flex: 1; padding: 2rem 2.5rem; min-width: 0; }
+
+.page-title {
+  font-family: var(--serif);
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--text-heading);
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+}
+.page-subtitle {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  margin-top: 0.35rem;
+  letter-spacing: 0.04em;
+}
+
+/* ── Color Filters ── */
+.filter-bar {
+  display: flex; align-items: center; gap: 0.5rem;
+  margin: 1.5rem 0;
+  flex-wrap: wrap;
+}
+.filter-label {
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-right: 0.25rem;
+}
+.filter-chip {
+  display: flex; align-items: center; gap: 0.35rem;
+  padding: 0.3rem 0.7rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  color: var(--text);
+  font-size: 0.7rem; font-family: var(--sans);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.filter-chip:hover { border-color: var(--border-hover); color: var(--text-bright); }
+.filter-chip.active { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+.filter-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--swatch-border);
+  flex-shrink: 0;
+}
+.filter-reset {
+  padding: 0.3rem 0.6rem;
+  background: none; border: none;
+  color: var(--text-dim);
+  font-size: 0.68rem; font-family: var(--sans);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.filter-reset:hover { color: var(--text); }
+
+/* ── Section Header ── */
+.section-header {
+  display: flex; align-items: baseline; gap: 0.75rem;
+  margin: 2.5rem 0 1.25rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--border);
+}
+.section-header:first-of-type { margin-top: 0.5rem; }
+.section-name {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--text-bright);
+}
+.section-meta {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+}
+
+/* ═══════════════ PRODUCT GRID ═══════════════ */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform var(--duration) var(--ease), box-shadow var(--duration) var(--ease), border-color 0.2s;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  box-shadow: var(--card-shadow);
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--card-shadow-hover);
+  border-color: var(--border-hover);
+}
+.card.selected { border-color: var(--accent); }
+
+.card-visual {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--white-soft);
+  overflow: hidden;
+}
+.card-visual img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  padding: 16px;
+  transition: transform 0.5s var(--ease);
+}
+.card:hover .card-visual img { transform: scale(1.05); }
+
+.card-swatch {
+  width: 100%; height: 100%;
+  transition: transform 0.5s var(--ease);
+}
+.card:hover .card-swatch { transform: scale(1.05); }
+
+.card-body { padding: 0.7rem 0.8rem 0.75rem; }
+.card-flower {
+  font-size: 0.78rem; font-weight: 500;
+  color: var(--text-bright);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.card-color-name {
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  margin-top: 0.1rem;
+}
+.card-size-label {
+  font-size: 0.62rem;
+  color: var(--text-dim);
+  margin-top: 0.05rem;
+  opacity: 0.7;
+}
+
+/* Add to moodboard button */
+.card-add {
+  position: absolute; top: 10px; right: 10px;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  color: var(--text);
+  font-size: 1.1rem;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: all 0.25s var(--ease);
+}
+[data-theme="dark"] .card-add {
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+}
+.card:hover .card-add { opacity: 1; transform: scale(1); }
+.card-add:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+.card.selected .card-add {
+  opacity: 1; transform: scale(1);
+  background: var(--accent); border-color: var(--accent); color: #fff;
+}
+
+/* ── Overview images ── */
+.overview-scroll {
+  display: flex; gap: 1rem;
+  overflow-x: auto;
+  margin-bottom: 2rem;
+  padding-bottom: 0.5rem;
+  scroll-snap-type: x mandatory;
+}
+.overview-scroll::-webkit-scrollbar { height: 3px; }
+.overview-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.overview-img {
+  flex-shrink: 0;
+  max-width: 700px;
+  width: 85%;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  scroll-snap-align: start;
+  transition: opacity 0.2s;
+}
+.overview-img:hover { opacity: 0.9; }
+
+/* ═══════════════ MOODBOARD PANEL ═══════════════ */
+.mb-panel {
+  position: fixed; top: 0; right: 0;
+  width: 420px; height: 100vh;
+  background: var(--mb-bg);
+  border-left: 1px solid var(--border);
+  z-index: 200;
+  transform: translateX(100%);
+  transition: transform 0.4s var(--ease), background-color 0.4s ease;
+  display: flex; flex-direction: column;
+  box-shadow: -8px 0 40px rgba(0,0,0,0.08);
+}
+.mb-panel.open { transform: translateX(0); }
+
+.mb-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.5rem 1.75rem;
+  border-bottom: 1px solid var(--border);
+}
+.mb-title {
+  font-family: var(--serif);
+  font-size: 1.3rem; font-weight: 400;
+  color: var(--text-heading);
+}
+.mb-close {
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  background: none; border: 1px solid var(--border);
+  border-radius: 50%; color: var(--text-dim);
+  font-size: 1rem; cursor: pointer;
+  transition: all 0.2s ease;
+}
+.mb-close:hover { border-color: var(--text); color: var(--text-bright); }
+
+/* Moodboard name input */
+.mb-name-row {
+  padding: 1rem 1.75rem;
+  border-bottom: 1px solid var(--border);
+}
+.mb-name-input {
+  width: 100%;
+  padding: 0.5rem 0;
+  background: none; border: none;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-bright);
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-style: italic;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.mb-name-input:focus { border-bottom-color: var(--accent); }
+.mb-name-input::placeholder { color: var(--text-dim); }
+
+.mb-items {
+  flex: 1; overflow-y: auto;
+  padding: 1.25rem 1.25rem;
+}
+
+.mb-empty {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  height: 100%; text-align: center;
+  padding: 2rem;
+  color: var(--text-dim);
+}
+.mb-empty-icon {
+  width: 56px; height: 56px;
+  border: 1.5px dashed var(--border);
+  border-radius: var(--radius-lg);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1.25rem;
+  color: var(--text-dim);
+}
+.mb-empty p { font-size: 0.82rem; line-height: 1.7; }
+.mb-empty p strong { color: var(--text); font-weight: 500; }
+
+/* ── Moodboard Grid (panel) ── */
+.mb-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+.mb-grid-item {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.mb-grid-item:hover { opacity: 0.85; }
+.mb-grid-item img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  background: var(--white-soft);
+  padding: 6px;
+}
+.mb-grid-item .swatch {
+  width: 100%; height: 100%;
+}
+.mb-grid-item .remove-x {
+  position: absolute; top: 3px; right: 3px;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  color: #fff; font-size: 0.6rem;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; cursor: pointer; border: none;
+  transition: opacity 0.15s;
+}
+.mb-grid-item:hover .remove-x { opacity: 1; }
+.mb-grid-item-label {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 3px 5px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.7));
+  font-size: 0.55rem;
+  color: #fff;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  pointer-events: none;
+}
+
+.mb-footer {
+  padding: 1.25rem 1.75rem;
+  border-top: 1px solid var(--border);
+  display: flex; flex-direction: column; gap: 0.5rem;
+}
+.mb-btn {
+  width: 100%; padding: 0.75rem;
+  border-radius: var(--radius);
+  font-size: 0.7rem; font-family: var(--sans);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s var(--ease);
+}
+.mb-btn-primary {
+  background: var(--accent); color: #fff;
+  border: 1px solid var(--accent); font-weight: 500;
+}
+[data-theme="light"] .mb-btn-primary { color: #fff; }
+[data-theme="dark"] .mb-btn-primary { color: var(--bg); }
+.mb-btn-primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+.mb-btn-ghost {
+  background: transparent; color: var(--text);
+  border: 1px solid var(--border);
+}
+.mb-btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+.mb-btn-danger {
+  background: transparent; color: var(--text-dim);
+  border: none; font-size: 0.65rem;
+  text-decoration: underline; text-underline-offset: 2px;
+  padding: 0.4rem;
+}
+.mb-btn-danger:hover { color: #a06050; }
+
+/* ═══════════════ SHARE MODAL ═══════════════ */
+.modal-bg {
+  position: fixed; inset: 0; z-index: 500;
+  background: var(--bg-overlay);
+  display: none; align-items: center; justify-content: center;
+  backdrop-filter: blur(4px);
+}
+.modal-bg.open { display: flex; }
+.modal-box {
+  background: var(--bg-warm);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  width: 90%; max-width: 460px;
+  padding: 2rem;
+  animation: modalIn 0.3s var(--ease);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+}
+@keyframes modalIn { from { opacity: 0; transform: translateY(8px) scale(0.98); } }
+.modal-box h2 {
+  font-family: var(--serif);
+  font-size: 1.2rem; font-weight: 400;
+  color: var(--text-heading);
+  margin-bottom: 0.3rem;
+}
+.modal-box p { font-size: 0.75rem; color: var(--text-dim); margin-bottom: 1.25rem; }
+.modal-field {
+  display: flex; gap: 0.5rem;
+}
+.modal-field input {
+  flex: 1;
+  padding: 0.6rem 0.8rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-bright);
+  font-size: 0.75rem; font-family: var(--sans);
+  outline: none;
+}
+.modal-field button {
+  padding: 0.6rem 1rem;
+  background: var(--accent); color: #fff;
+  border: none; border-radius: var(--radius);
+  font-size: 0.7rem; font-family: var(--sans);
+  letter-spacing: 0.06em; cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+.modal-field button:hover { background: var(--accent-hover); }
+.modal-feedback { font-size: 0.7rem; color: #7a9a6a; margin-top: 0.5rem; min-height: 1em; }
+.modal-dismiss {
+  display: block; width: 100%; margin-top: 1.25rem;
+  padding: 0.6rem; background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-dim);
+  font-size: 0.7rem; font-family: var(--sans);
+  cursor: pointer; letter-spacing: 0.06em;
+}
+.modal-dismiss:hover { border-color: var(--text-dim); color: var(--text); }
+
+/* ═══════════════ LIGHTBOX ═══════════════ */
+.lightbox {
+  position: fixed; inset: 0; z-index: 400;
+  background: var(--lightbox-bg);
+  display: none; align-items: center; justify-content: center;
+  cursor: zoom-out;
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.2s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } }
+.lightbox.open { display: flex; }
+.lightbox img {
+  max-width: 88vw; max-height: 88vh;
+  object-fit: contain;
+  border-radius: var(--radius-lg);
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 20px 80px rgba(0,0,0,0.5);
+}
+.lightbox-caption {
+  position: absolute; bottom: 2.5rem;
+  left: 50%; transform: translateX(-50%);
+  text-align: center;
+  color: #fff;
+  font-family: var(--serif);
+  font-size: 1rem;
+  background: rgba(0,0,0,0.6);
+  padding: 0.5rem 1.5rem;
+  border-radius: 100px;
+  backdrop-filter: blur(10px);
+  white-space: nowrap;
+}
+
+/* ═══════════════ SHARE VIEW (public moodboard) ═══════════════ */
+.share-page {
+  min-height: 100vh;
+  background: #f8f7f4;
+  color: #2a2824;
+}
+.share-header {
+  text-align: center;
+  padding: 4rem 2rem 2.5rem;
+}
+.share-header img {
+  height: 20px;
+  opacity: 0.65;
+  margin-bottom: 1.75rem;
+}
+.share-header-line {
+  width: 32px; height: 1px;
+  background: #d4d0c8;
+  margin: 0 auto 1.5rem;
+}
+.share-header h1 {
+  font-family: var(--serif);
+  font-size: 2.2rem;
+  font-weight: 300;
+  color: #1a1816;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  margin-bottom: 0.4rem;
+}
+.share-header p {
+  font-size: 0.7rem;
+  color: #9a958b;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.share-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 2rem 3rem;
+}
+.share-item {
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.03);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.share-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.07), 0 8px 32px rgba(0,0,0,0.04);
+}
+.share-item img {
+  width: 100%; aspect-ratio: 1;
+  object-fit: contain;
+  padding: 18px;
+  background: #faf8f4;
+}
+.share-item .sh-swatch {
+  width: 100%; aspect-ratio: 1;
+}
+.share-item .s-info {
+  padding: 0.65rem 0.85rem 0.7rem;
+  border-top: 1px solid #f0eeea;
+}
+.share-item .s-name {
+  font-size: 0.8rem; font-weight: 500;
+  color: #2a2824;
+}
+.share-item .s-detail {
+  font-size: 0.68rem;
+  color: #9a958b;
+  margin-top: 0.1rem;
+}
+.share-footer {
+  text-align: center;
+  padding: 2rem 2rem 3rem;
+  border-top: 1px solid #e8e5de;
+  max-width: 1060px;
+  margin: 0 auto;
+}
+.share-footer img {
+  height: 15px;
+  opacity: 0.35;
+  margin-bottom: 0.5rem;
+}
+.share-footer p {
+  font-size: 0.62rem;
+  color: #b0ab9f;
+  letter-spacing: 0.08em;
+}
+@media (max-width: 700px) {
+  .share-header h1 { font-size: 1.6rem; }
+  .share-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; padding: 0 1rem 2rem; }
+  .share-header { padding: 2.5rem 1rem 1.5rem; }
+}
+
+/* ═══════════════ MOBILE ═══════════════ */
+.mobile-cats {
+  display: none;
+  padding: 0.65rem 1rem;
+  overflow-x: auto;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--border);
+  -webkit-overflow-scrolling: touch;
+  gap: 0.4rem;
+}
+.mobile-cats::-webkit-scrollbar { display: none; }
+@media (max-width: 900px) {
+  .mobile-cats { display: flex; }
+  .sidebar { display: none; }
+  .cat-nav { padding: 1rem 1rem 0; }
+  .cat-tab { padding: 0.65rem 1.25rem; font-size: 1rem; }
+  header { padding: 0 1rem; height: 52px; }
+  .content { padding: 1.25rem; }
+  .product-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.75rem; }
+  .page-title { font-size: 1.5rem; }
+  .mb-panel { width: 100%; }
+  .share-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+}
+.mob-chip {
+  flex-shrink: 0;
+  padding: 0.35rem 0.7rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  color: var(--text);
+  font-size: 0.68rem; font-family: var(--sans);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.mob-chip.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* ═══════════════ SCROLLBAR ═══════════════ */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+
+/* ═══════════════ PRINT ═══════════════ */
+@media print {
+  body { background: #fff; color: #222; }
+  header, .sidebar, .mb-panel, .modal-bg, .lightbox, .mobile-cats,
+  .moodboard-toggle, .card-add, .mb-footer, .filter-bar, .cat-nav, .theme-toggle { display: none !important; }
+  .content { padding: 0; }
+  .card { border: 1px solid #e0e0e0; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<!-- Login -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo"><img src="images/logo.png" alt="Forever Collective"></div>
+    <div class="login-sub">Produktkatalog</div>
+    <div class="login-line"></div>
+    <input type="password" id="login-pw" placeholder="Passwort" autofocus>
+    <button class="login-btn" onclick="attemptLogin()">Zugang</button>
+    <div class="login-error" id="login-error"></div>
+  </div>
+</div>
+
+<!-- App -->
+<div id="app">
+  <header>
+    <div class="logo"><img src="images/logo.png" alt="Forever Collective"></div>
+    <div class="header-right">
+      <button class="theme-toggle" onclick="toggleTheme()" title="Theme wechseln">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="moodboard-toggle" onclick="toggleMoodboard()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/></svg>
+        Moodboard
+        <span class="mb-count" id="mb-badge"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Category Tabs -->
+  <div class="cat-nav">
+    <div class="cat-tabs" id="cat-tabs"></div>
+  </div>
+
+  <div class="mobile-cats" id="mobile-cats"></div>
+
+  <div class="main-layout">
+    <nav class="sidebar" id="sidebar"></nav>
+    <main class="content" id="content"></main>
+  </div>
+</div>
+
+<!-- Moodboard Panel -->
+<div class="mb-panel" id="mb-panel">
+  <div class="mb-header">
+    <span class="mb-title">Moodboard</span>
+    <button class="mb-close" onclick="toggleMoodboard()">&times;</button>
+  </div>
+  <div class="mb-name-row">
+    <input class="mb-name-input" id="mb-name" type="text" placeholder="Moodboard benennen ..." maxlength="60">
+  </div>
+  <div class="mb-items" id="mb-items"></div>
+  <div class="mb-footer" id="mb-footer">
+    <button class="mb-btn mb-btn-primary" onclick="shareMoodboard()">Link teilen</button>
+    <button class="mb-btn mb-btn-ghost" onclick="downloadPDF()">PDF herunterladen</button>
+    <button class="mb-btn mb-btn-danger" onclick="clearMoodboard()">Alles entfernen</button>
+  </div>
+</div>
+
+<!-- Share Modal -->
+<div class="modal-bg" id="share-modal">
+  <div class="modal-box">
+    <h2>Moodboard teilen</h2>
+    <p>Dieser Link zeigt das Moodboard ohne Login.</p>
+    <div class="modal-field">
+      <input type="text" id="share-url" readonly>
+      <button onclick="copyShareLink()">Kopieren</button>
+    </div>
+    <div class="modal-feedback" id="copy-feedback"></div>
+    <button class="modal-dismiss" onclick="closeShareModal()">Schliessen</button>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <img id="lb-img" src="" alt="">
+  <div class="lightbox-caption" id="lb-caption"></div>
+</div>
+
+<script>
+// ═══════════════ CATALOG DATA ═══════════════
+const CATALOG = {
+  "Blüten": {
+    "Anastasia": {
+      size: "5–8 cm",
+      colors: [
+        { name: "Citrus Green", img: "blueten/Anastasia_5_8/Citrus Green.png" },
+        { name: "Pastel Pink", img: "blueten/Anastasia_5_8/Pastel Pink.png" },
+        { name: "Purple", img: "blueten/Anastasia_5_8/Purple.png" },
+        { name: "Warm Yellow", img: "blueten/Anastasia_5_8/Warm Yellow.png" },
+        { name: "White", img: "blueten/Anastasia_5_8/White.png" }
+      ]
+    },
+    "Anemone": { colors: [{ name: "Red", img: "blueten/Anemone.png" }] },
+    "Buttercup": { colors: [{ name: "Natural", img: "blueten/Buttercup.png" }] },
+    "Calendula": { colors: [{ name: "Natural", img: "blueten/Calendula.png" }] },
+    "Carnations": {
+      size: "5 cm",
+      colors: [
+        { name: "Pastel Pink", img: "blueten/Carnations_5/Pastel Pink.png" },
+        { name: "Red", img: "blueten/Carnations_5/Red.png" },
+        { name: "White Blue", img: "blueten/Carnations_5/White Blue.png" },
+        { name: "White Green", img: "blueten/Carnations_5/White Green.png" },
+        { name: "White Pink", img: "blueten/Carnations_5/White Pink.png" },
+        { name: "White", img: "blueten/Carnations_5/White.png" }
+      ]
+    },
+    "Dahlien": {
+      colors: [
+        { name: "Chroma Light Red", img: "blueten/Dahlien/Chroma Light Red.png" },
+        { name: "Chroma Lila", img: "blueten/Dahlien/Chroma Lila.png" },
+        { name: "Chroma Orange", img: "blueten/Dahlien/Chroma Orange.png" },
+        { name: "Chroma Sunny", img: "blueten/Dahlien/Chroma Sunny.png" }
+      ]
+    },
+    "Dendrobium Orchid": {
+      size: "5.5–8 cm",
+      colors: [
+        { name: "Citrus Green", img: "blueten/Dendrobium Orchid_5,5_8/Orchid Citrus Green.png" },
+        { name: "Dark Pink", img: "blueten/Dendrobium Orchid_5,5_8/Orchid_Dark Pink.png" },
+        { name: "Warm Yellow", img: "blueten/Dendrobium Orchid_5,5_8/Orchid_Warm Yellow.png" },
+        { name: "White", img: "blueten/Dendrobium Orchid_5,5_8/Orchid_White.png" }
+      ]
+    },
+    "Focus": {
+      size: "2.5–3 cm",
+      colors: [
+        { name: "Citrus Green", img: "blueten/Focus_2.5_3/Citrus Green.png" },
+        { name: "Pastel Pink", img: "blueten/Focus_2.5_3/Pastel Pink.png" },
+        { name: "Soft Lilac", img: "blueten/Focus_2.5_3/Soft Lilac.png" },
+        { name: "Soft Yellow", img: "blueten/Focus_2.5_3/Soft Yellow.png" },
+        { name: "White", img: "blueten/Focus_2.5_3/White.png" }
+      ]
+    },
+    "Gardenia": {
+      size: "6–10 cm",
+      colors: [
+        { name: "Burgundy", img: "blueten/Gardenia_6_10/Burgundy.png" },
+        { name: "Cherry Blossom", img: "blueten/Gardenia_6_10/Cherry Blossom.png" },
+        { name: "Cranberry", img: "blueten/Gardenia_6_10/Cranberry.png" },
+        { name: "White", img: "blueten/Gardenia_6_10/White.png" }
+      ]
+    },
+    "Gerbera": {
+      size: "8–9.5 cm",
+      colors: [
+        { name: "Pastel Pink", img: "blueten/Gerbera_8_9.5/Pastel Pink.png" },
+        { name: "Red", img: "blueten/Gerbera_8_9.5/Red.png" },
+        { name: "Warm Yellow", img: "blueten/Gerbera_8_9.5/Warm Yellow.png" },
+        { name: "White", img: "blueten/Gerbera_8_9.5/White.png" }
+      ]
+    },
+    "Hydrangea — Premium": {
+      size: "16–25 cm", subcategory: "Premium",
+      colors: [
+        { name: "Citrus Green", img: "blueten/Hydrangea_16_25/Premium Hydrangea/Citrus Green.png" },
+        { name: "Light Blue", img: "blueten/Hydrangea_16_25/Premium Hydrangea/Light Blue.png" },
+        { name: "Lilac", img: "blueten/Hydrangea_16_25/Premium Hydrangea/Lilac.png" },
+        { name: "Peach", img: "blueten/Hydrangea_16_25/Premium Hydrangea/Peach.png" },
+        { name: "Pink Pastel", img: "blueten/Hydrangea_16_25/Premium Hydrangea/Pink Pastel.png" },
+        { name: "White", img: "blueten/Hydrangea_16_25/Premium Hydrangea/White.png" }
+      ]
+    },
+    "Hydrangea — Standard": {
+      size: "16–25 cm", subcategory: "Standard",
+      colors: [
+        { name: "Natural Cream Pink", img: "blueten/Hydrangea_16_25/Natural Cream Pink_gr.png" },
+        { name: "Autumn", img: "blueten/Hydrangea_16_25/Standard Hydrangea/Autumn.png" },
+        { name: "Byzance", img: "blueten/Hydrangea_16_25/Standard Hydrangea/Byzance.png" },
+        { name: "Green", img: "blueten/Hydrangea_16_25/Standard Hydrangea/Green.png" },
+        { name: "Natural Blue", img: "blueten/Hydrangea_16_25/Standard Hydrangea/Natural Blue.png" },
+        { name: "Natural Cream Pink", img: "blueten/Hydrangea_16_25/Standard Hydrangea/Natural Cream Pink.png" },
+        { name: "Natural", img: "blueten/Hydrangea_16_25/Standard Hydrangea/Natural.png" },
+        { name: "Olive Green", img: "blueten/Hydrangea_16_25/Standard Hydrangea/Olive Green.png" },
+        { name: "Pink", img: "blueten/Hydrangea_16_25/Standard Hydrangea/Pink.png" },
+        { name: "Red", img: "blueten/Hydrangea_16_25/Standard Hydrangea/Red.png" }
+      ]
+    },
+    "Margarita": { colors: [{ name: "Natural", img: "blueten/Margarita.png" }] },
+    "Mini Calla": {
+      size: "7–9 cm",
+      colors: [
+        { name: "Blackberry", img: "blueten/Mini Calla_7_9/Blackberry.png" },
+        { name: "Burgundy", img: "blueten/Mini Calla_7_9/Burgundy.png" },
+        { name: "Lilac", img: "blueten/Mini Calla_7_9/Lilac.png" },
+        { name: "Natural", img: "blueten/Mini Calla_7_9/Natural.png" },
+        { name: "Warm Yellow", img: "blueten/Mini Calla_7_9/Warm Yellow.png" }
+      ],
+      overview: "blueten/Mini Calla_7_9/Bildschirmfoto 2026-02-10 um 10.44.53.png"
+    },
+    "Myosotis": {
+      colors: [
+        { name: "Blue", img: "blueten/Myosotis/Blue.png" },
+        { name: "Pink", img: "blueten/Myosotis/Pink.png" },
+        { name: "Yellow Cream", img: "blueten/Myosotis/Yellow Cream.png" }
+      ]
+    },
+    "Ranunculus": { colors: [{ name: "Natural", img: "blueten/Ranunculus.png" }] },
+    "Rosen": {
+      size: "2–10 cm",
+      colors: [
+        { name: "Classic Red", img: "blueten/Rosen_Individual/Rose_Dark Red_2026-02-10_121813_01.png" },
+        { name: "Red Heart", img: "blueten/Rosen_Individual/Rose_Dark Red_2026-02-10_121813_02.png" },
+        { name: "Cherry Red", img: "blueten/Rosen_Individual/Rose_Dark Red_2026-02-10_121813_03.png" },
+        { name: "Crimson", img: "blueten/Rosen_Individual/Rose_Orange_2026-02-10_122004_01.png" },
+        { name: "Red", img: "blueten/Rosen_Individual/Rose_Dark Red_2026-02-10_122004_02.png" },
+        { name: "Scarlet", img: "blueten/Rosen_Individual/Rose_Yellow_2026-02-10_121813_04.png" },
+        { name: "Ruby", img: "blueten/Rosen_Individual/Rose_Yellow_2026-02-10_121813_06.png" },
+        { name: "Dark Red", img: "blueten/Rosen_Individual/Rose_Green_2026-02-10_122004_05.png" },
+        { name: "Wine", img: "blueten/Rosen_Individual/Rose_Green_2026-02-10_122035_05.png" },
+        { name: "Light Red", img: "blueten/Rosen_Individual/Rose_Orange_2026-02-10_122035_01.png" },
+        { name: "Light Pink", img: "blueten/Rosen_Individual/Rose_Yellow_2026-02-10_122035_02.png" },
+        { name: "Dark Amber", img: "blueten/Rosen_Individual/Rose_Black_2026-02-10_122035_03.png" },
+        { name: "Fuchsia", img: "blueten/Rosen_Individual/Rose_Green_2026-02-10_122035_04.png" },
+        { name: "Orange", img: "blueten/Rosen_Individual/Rose_Pink_2026-02-10_122035_08.png" },
+        { name: "Peach", img: "blueten/Rosen_Individual/Rose_Pink_2026-02-10_122035_09.png" },
+        { name: "Green", img: "blueten/Rosen_Individual/Rose_Yellow_2026-02-10_122035_12.png" },
+        { name: "Ebony", img: "blueten/Rosen_Individual/Rose_Black_2026-02-10_122035_13.png" },
+        { name: "Pink Champagne", img: "blueten/Rosen_Individual/Rose_Gray_2026-02-10_122059_02.png" },
+        { name: "Mint", img: "blueten/Rosen_Individual/Rose_Yellow_2026-02-10_122059_03.png" },
+        { name: "Light Blue", img: "blueten/Rosen_Individual/Rose_Gray_2026-02-10_122059_04.png" },
+        { name: "Latte", img: "blueten/Rosen_Individual/Rose_Dark Red_2026-02-10_122059_05.png" },
+        { name: "White", img: "blueten/Rosen_Individual/Rose_Gray_2026-02-10_122059_06.png" },
+        { name: "Sand", img: "blueten/Rosen_Individual/Rose_Gray_2026-02-10_122059_07.png" },
+        { name: "Burgundy", img: "blueten/Rosen_Individual/Rose_Orange_2026-02-10_121813_07.png" }
+      ],
+      note: "Classic (6.5 / 8 / 10 cm), Amorosa Standard & Bulk, Herz- und Standardform"
+    },
+    "Red Dahlia": { colors: [{ name: "Red", img: "blueten/Red.png" }] },
+    "Sunflower": { colors: [{ name: "Natural", img: "blueten/Sunflower.png" }] },
+    "Tuberose": {
+      size: "2–5 cm",
+      colors: [
+        { name: "Pastel Pink", img: "blueten/Tuberose_2_5/Pastel Pink.png" },
+        { name: "Sky Blue", img: "blueten/Tuberose_2_5/Sky Blue.png" },
+        { name: "White", img: "blueten/Tuberose_2_5/White.png" }
+      ]
+    }
+  },
+  "Greens": {
+    "Amaranthus": {
+      size: "40–70 cm",
+      colors: [
+        { name: "Almond Green", img: "gruenzeug/Amaranthus_40_70/Almond Green.png" },
+        { name: "Burgundy", img: "gruenzeug/Amaranthus_40_70/Burgundy.png" },
+        { name: "Citron Green", img: "gruenzeug/Amaranthus_40_70/Citron Green.png" },
+        { name: "Green", img: "gruenzeug/Amaranthus_40_70/Green.png" },
+        { name: "Purple", img: "gruenzeug/Amaranthus_40_70/Purple.png" },
+        { name: "White", img: "gruenzeug/Amaranthus_40_70/White.png" }
+      ],
+      overview: "gruenzeug/Amaranthus_40_70/Bildschirmfoto 2026-02-10 um 10.49.04.png"
+    },
+    "Broom": { colors: [{ name: "Green", img: "gruenzeug/Broom/Green.png" }] },
+    "Bruni Albiflora": {
+      colors: [
+        { name: "Byzantium", img: "gruenzeug/Bruni albiflora/Byzantium.png" },
+        { name: "Grey Green", img: "gruenzeug/Bruni albiflora/Grey green.png" },
+        { name: "Yellow Green", img: "gruenzeug/Bruni albiflora/Yellow green.png" }
+      ]
+    },
+    "Buxus": { colors: [{ name: "Green", img: "gruenzeug/Buxus/Green.png" }] },
+    "Eucalyptus Baby Blue": { subcategory: "Baby Blue", colors: [{ name: "Green", img: "gruenzeug/Eucalyptus/Baby Blue/Green.png" }] },
+    "Eucalyptus Cinerea": { subcategory: "Cinerea", colors: [{ name: "Green", img: "gruenzeug/Eucalyptus/Cinerea/Green.png" }] },
+    "Eucalyptus Nicoly": { subcategory: "Nicoly", colors: [{ name: "Green", img: "gruenzeug/Eucalyptus/Nicoly/Green.png" }, { name: "Red", img: "gruenzeug/Eucalyptus/Nicoly/Red.png" }] },
+    "Eucalyptus Parvifolia": { subcategory: "Parvifolia", colors: [{ name: "Green", img: "gruenzeug/Eucalyptus/Parvifolia/Green.png" }] },
+    "Eucalyptus Pendula": { subcategory: "Pendula", colors: [{ name: "Green", img: "gruenzeug/Eucalyptus/Pendula /Green.png" }] },
+    "Eucalyptus Populus": { subcategory: "Populus", colors: [{ name: "Green", img: "gruenzeug/Eucalyptus/Populus/Green.png" }, { name: "Red", img: "gruenzeug/Eucalyptus/Populus/Red.png" }] },
+    "Gypsophila": {
+      colors: [
+        { name: "Blue", img: "gruenzeug/Gypsopholia/Blue_EQ.png" },
+        { name: "Cream", img: "gruenzeug/Gypsopholia/Cream.png" },
+        { name: "Hot Pink", img: "gruenzeug/Gypsopholia/Hot Pink_EQ.png" },
+        { name: "Light Blue", img: "gruenzeug/Gypsopholia/Light Blue_EQ .png" },
+        { name: "Light Pink", img: "gruenzeug/Gypsopholia/Light Pink_EQ.png" },
+        { name: "Milka", img: "gruenzeug/Gypsopholia/Milka_EQ.png" },
+        { name: "Pastel Pink", img: "gruenzeug/Gypsopholia/Pastel Pink.png" },
+        { name: "Yellow", img: "gruenzeug/Gypsopholia/Yellow.png" }
+      ]
+    },
+    "Lanuginosa": { colors: [{ name: "Green", img: "gruenzeug/Lanuginosa/Green.png" }] },
+    "Lavender": { colors: [{ name: "Natural", img: "gruenzeug/Lavender/Natural.png" }] },
+    "Lepto Lungifolia": { colors: [{ name: "Green", img: "gruenzeug/Lepto Lungifolia/Bildschirmfoto 2026-02-10 um 12.09.00.png" }] },
+    "Olive": { colors: [{ name: "Olive", img: "gruenzeug/Olive/Olive.png" }] },
+    "Pubescens": {
+      colors: [
+        { name: "Green", img: "gruenzeug/Pubescens/Green.png" },
+        { name: "Sage Green", img: "gruenzeug/Pubescens/Sage Green.png" },
+        { name: "Silver White", img: "gruenzeug/Pubescens/Silver White.png" }
+      ]
+    },
+    "Rice Flowers": {
+      colors: [
+        { name: "Blue", img: "gruenzeug/Rice Flowers/Blue.png" },
+        { name: "Lilac", img: "gruenzeug/Rice Flowers/Lilac.png" },
+        { name: "Natural White", img: "gruenzeug/Rice Flowers/Natural White.png" },
+        { name: "Orange", img: "gruenzeug/Rice Flowers/Orange.png" },
+        { name: "Peach", img: "gruenzeug/Rice Flowers/Peach.png" },
+        { name: "Pink", img: "gruenzeug/Rice Flowers/Pink.png" },
+        { name: "Red", img: "gruenzeug/Rice Flowers/Red.png" },
+        { name: "Yellow", img: "gruenzeug/Rice Flowers/Yellow.png" }
+      ]
+    },
+    "Ruscus": { colors: [{ name: "Green", img: "gruenzeug/Ruscus/Green.png" }, { name: "White", img: "gruenzeug/Ruscus/White.png" }] },
+    "Solidago": {
+      colors: [
+        { name: "Burgundy", img: "gruenzeug/Solidago/Burgundy.png" },
+        { name: "Green", img: "gruenzeug/Solidago/Green.png" },
+        { name: "Yellow", img: "gruenzeug/Solidago/Yellow.png" }
+      ]
+    },
+    "Stoebe": {
+      colors: [
+        { name: "Byzantium", img: "gruenzeug/Stoebe/Byzantium.png" },
+        { name: "Green", img: "gruenzeug/Stoebe/Green.png" },
+        { name: "Green (Gross)", img: "gruenzeug/Stoebe/Green_Gr.png" },
+        { name: "Silver White", img: "gruenzeug/Stoebe/Silver White.png" }
+      ]
+    }
+  }
+};
+
+// ═══════════════ COLOR FAMILIES ═══════════════
+const COLOR_FAMILIES = {
+  'Rosa / Pink':   { hex: '#e8a0b0', match: /pink|rose|fuchsia|blush|pastel pink|light pink|hot pink|bright pink|dark pink|dusty pink|cherry|cranberry|mauve/i },
+  'Rot':           { hex: '#c0392b', match: /^red$|light red|burgundy|blackberry|cherry vintage/i },
+  'Orange / Peach':{ hex: '#e8a060', match: /orange|peach|apricot|sunny|chroma sunny|warm yellow/i },
+  'Gelb':          { hex: '#e8d060', match: /yellow|lemon|cream|champagne|vanilla|creme|ivory|sand|latte/i },
+  'Grün':          { hex: '#6a9a50', match: /green|lime|citrus|citron|olive|almond|sage/i },
+  'Blau':          { hex: '#6090c0', match: /blue|cyan|sky|light blue/i },
+  'Lila':          { hex: '#9878b8', match: /purple|lilac|lila|lavender|milka|byzantium|byzance|mauve|violet|bright lilac|soft lilac/i },
+  'Weiss / Neutral': { hex: '#d8d4cc', match: /^white$|natural|white blue|white green|white pink|silver|grey|autumn/i },
+  'Dunkel':        { hex: '#3a3028', match: /black|ebony|dark amber|dark blue/i }
+};
+
+function getColorFamily(colorName) {
+  for (const [family, {match}] of Object.entries(COLOR_FAMILIES)) {
+    if (match.test(colorName)) return family;
+  }
+  return null;
+}
+
+// ═══════════════ STATE ═══════════════
+let moodboard = JSON.parse(localStorage.getItem('fc_moodboard') || '[]');
+let moodboardName = localStorage.getItem('fc_mb_name') || '';
+let currentCategory = null;
+let currentFlower = null;
+let activeColorFilter = null;
+let moodboardOpen = false;
+
+// ═══════════════ THEME ═══════════════
+function getTheme() { return localStorage.getItem('fc_theme') || 'light'; }
+function setTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  localStorage.setItem('fc_theme', t);
+}
+function toggleTheme() {
+  setTheme(getTheme() === 'light' ? 'dark' : 'light');
+}
+setTheme(getTheme());
+
+// ═══════════════ AUTH ═══════════════
+const PASS = 'fc2025katalog';
+function attemptLogin() {
+  if (document.getElementById('login-pw').value === PASS) {
+    sessionStorage.setItem('fc_auth', '1');
+    document.getElementById('login-screen').classList.add('hidden');
+    document.getElementById('app').classList.add('visible');
+    initApp();
+  } else {
+    document.getElementById('login-error').textContent = 'Falsches Passwort.';
+    document.getElementById('login-pw').value = '';
+  }
+}
+document.getElementById('login-pw').addEventListener('keydown', e => { if (e.key === 'Enter') attemptLogin(); });
+
+// ═══════════════ SHARE VIEW ═══════════════
+function checkShareView() {
+  const p = new URLSearchParams(location.search);
+  if (p.has('moodboard')) {
+    try {
+      const raw = JSON.parse(decodeURIComponent(escape(atob(p.get('moodboard')))));
+      const name = p.get('name') ? decodeURIComponent(p.get('name')) : '';
+      document.getElementById('login-screen').classList.add('hidden');
+      document.getElementById('app').style.display = 'none';
+      renderShareView(raw, name);
+      return true;
+    } catch(e) {}
+  }
+  return false;
+}
+
+function renderShareView(items, name) {
+  const d = document.createElement('div');
+  d.className = 'share-page';
+  d.innerHTML = `
+    <div class="share-header">
+      <img src="images/logo.png" alt="Forever Collective">
+      <div class="share-header-line"></div>
+      <h1>${name || 'Moodboard'}</h1>
+      <p>${items.length} Produkt${items.length!==1?'e':''} · Forever Collective</p>
+    </div>
+    <div class="share-grid">
+      ${items.map(it => {
+        const vis = it.img
+          ? `<img src="images/${it.img}" alt="${it.name}">`
+          : `<div class="sh-swatch" style="background:${it.colorHex}"></div>`;
+        return `<div class="share-item">${vis}<div class="s-info"><div class="s-name">${it.name}</div><div class="s-detail">${it.color}${it.size?' · '+it.size:''}</div></div></div>`;
+      }).join('')}
+    </div>
+    <div class="share-footer">
+      <img src="images/logo.png" alt="Forever Collective">
+      <p>forever-collective.com</p>
+    </div>`;
+  document.body.appendChild(d);
+}
+
+// ═══════════════ INIT ═══════════════
+function initApp() {
+  document.getElementById('mb-name').value = moodboardName;
+  document.getElementById('mb-name').addEventListener('input', e => {
+    moodboardName = e.target.value;
+    localStorage.setItem('fc_mb_name', moodboardName);
+  });
+  buildCategoryTabs();
+  buildSidebar();
+  showCategory('Blüten');
+  updateMoodboardUI();
+}
+
+if (!checkShareView()) {
+  if (sessionStorage.getItem('fc_auth') === '1') {
+    document.getElementById('login-screen').classList.add('hidden');
+    document.getElementById('app').classList.add('visible');
+    initApp();
+  }
+}
+
+// ═══════════════ CATEGORY TABS ═══════════════
+function buildCategoryTabs() {
+  const el = document.getElementById('cat-tabs');
+  let h = '';
+  for (const [cat, flowers] of Object.entries(CATALOG)) {
+    const n = Object.values(flowers).reduce((s,f) => s + f.colors.length, 0);
+    h += `<button class="cat-tab" data-cat="${cat}" onclick="switchCategory('${cat.replace(/'/g, "\\'")}')">${cat}<span class="cat-count">${n}</span></button>`;
+  }
+  el.innerHTML = h;
+}
+
+function switchCategory(cat) {
+  currentCategory = cat;
+  currentFlower = null;
+  activeColorFilter = null;
+  document.querySelectorAll('.cat-tab').forEach(t => t.classList.toggle('active', t.dataset.cat === cat));
+  buildSidebar();
+  showCategory(cat);
+}
+
+// ═══════════════ SIDEBAR ═══════════════
+function buildSidebar() {
+  const sb = document.getElementById('sidebar');
+  const mob = document.getElementById('mobile-cats');
+  const cat = currentCategory || 'Blüten';
+  const flowers = CATALOG[cat];
+  const total = Object.values(flowers).reduce((s,f) => s + f.colors.length, 0);
+
+  let h = `<div class="sidebar-section">`;
+  h += `<button class="nav-btn all-btn${!currentFlower?' active':''}" data-c="${cat}" data-f="" onclick="showCategory('${cat.replace(/'/g, "\\'")}')">${cat === 'Blüten' ? 'Alle Blüten' : 'All Greens'}<span class="nav-count">${total}</span></button>`;
+  for (const [fn, fd] of Object.entries(flowers)) {
+    h += navBtn(cat, fn, fn, fd.colors.length);
+  }
+  h += '</div>';
+  sb.innerHTML = h;
+
+  // Mobile chips
+  let m = '';
+  for (const [c] of Object.entries(CATALOG)) {
+    m += mobBtn(c, '', c === 'Blüten' ? 'Blüten' : 'Greens');
+    if (c === cat) {
+      for (const [fn] of Object.entries(CATALOG[c])) {
+        m += mobBtn(c, fn, fn);
+      }
+    }
+  }
+  mob.innerHTML = m;
+
+  // Set active tab
+  document.querySelectorAll('.cat-tab').forEach(t => t.classList.toggle('active', t.dataset.cat === cat));
+}
+
+function navBtn(cat, flower, label, count) {
+  const esc = s => s.replace(/'/g, "\\'");
+  const click = flower ? `showFlower('${esc(cat)}','${esc(flower)}')` : `showCategory('${esc(cat)}')`;
+  return `<button class="nav-btn" data-c="${cat}" data-f="${flower}" onclick="${click}">${label}<span class="nav-count">${count}</span></button>`;
+}
+function mobBtn(cat, flower, label) {
+  const esc = s => s.replace(/'/g, "\\'");
+  const click = flower ? `showFlower('${esc(cat)}','${esc(flower)}')` : `switchCategory('${esc(cat)}')`;
+  return `<button class="mob-chip" data-c="${cat}" data-f="${flower}" onclick="${click}">${label}</button>`;
+}
+function setActiveNav(cat, flower) {
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.c===cat && b.dataset.f===(flower||'')));
+  document.querySelectorAll('.mob-chip').forEach(b => b.classList.toggle('active', b.dataset.c===cat && b.dataset.f===(flower||'')));
+}
+
+// ═══════════════ COLLECT COLORS FOR FILTERS ═══════════════
+function getColorsInView(cat, flower) {
+  const families = new Set();
+  const items = flower ? { [flower]: CATALOG[cat][flower] } : CATALOG[cat];
+  for (const data of Object.values(items)) {
+    for (const c of data.colors) {
+      const f = getColorFamily(c.name);
+      if (f) families.add(f);
+    }
+  }
+  return [...families];
+}
+
+function renderFilterBar(cat, flower) {
+  const families = getColorsInView(cat, flower);
+  if (families.length <= 1) return '';
+  let h = '<div class="filter-bar"><span class="filter-label">Farbe</span>';
+  for (const fam of families) {
+    const info = COLOR_FAMILIES[fam];
+    const active = activeColorFilter === fam ? ' active' : '';
+    h += `<button class="filter-chip${active}" onclick="toggleFilter('${fam}')"><span class="filter-dot" style="background:${info.hex}"></span>${fam}</button>`;
+  }
+  if (activeColorFilter) h += `<button class="filter-reset" onclick="toggleFilter(null)">Zurücksetzen</button>`;
+  h += '</div>';
+  return h;
+}
+
+function toggleFilter(fam) {
+  activeColorFilter = activeColorFilter === fam ? null : fam;
+  if (currentFlower) showFlower(currentCategory, currentFlower);
+  else showCategory(currentCategory);
+}
+
+function matchesFilter(colorName) {
+  if (!activeColorFilter) return true;
+  const {match} = COLOR_FAMILIES[activeColorFilter];
+  return match.test(colorName);
+}
+
+// ═══════════════ SHOW CATEGORY ═══════════════
+function showCategory(cat) {
+  currentCategory = cat; currentFlower = null;
+  setActiveNav(cat, null);
+  document.querySelectorAll('.cat-tab').forEach(t => t.classList.toggle('active', t.dataset.cat === cat));
+  const flowers = CATALOG[cat];
+  const total = Object.values(flowers).reduce((s,f) => s+f.colors.length, 0);
+  const el = document.getElementById('content');
+  let h = `<h1 class="page-title">${cat}</h1>
+    <p class="page-subtitle">${Object.keys(flowers).length} Sorten · ${total} Varianten</p>`;
+  h += renderFilterBar(cat, null);
+  for (const [fn, fd] of Object.entries(flowers)) {
+    const filtered = fd.colors.filter(c => matchesFilter(c.name));
+    if (filtered.length === 0 && activeColorFilter) continue;
+    h += `<div class="section-header"><span class="section-name">${fn}</span>`;
+    if (fd.size) h += `<span class="section-meta">${fd.size}</span>`;
+    h += `</div>`;
+    h += renderGrid(cat, fn, { ...fd, colors: filtered });
+  }
+  el.innerHTML = h;
+  window.scrollTo(0, 0);
+}
+
+// ═══════════════ SHOW FLOWER ═══════════════
+function showFlower(cat, flower) {
+  currentCategory = cat; currentFlower = flower;
+  setActiveNav(cat, flower);
+  document.querySelectorAll('.cat-tab').forEach(t => t.classList.toggle('active', t.dataset.cat === cat));
+  const d = CATALOG[cat][flower];
+  const el = document.getElementById('content');
+  const filtered = d.colors.filter(c => matchesFilter(c.name));
+  let h = `<h1 class="page-title">${flower}</h1>
+    <p class="page-subtitle">${d.colors.length} Farb${d.colors.length!==1?'en':'e'}${d.size?' · '+d.size:''}${d.note?' · '+d.note:''}</p>`;
+  h += renderFilterBar(cat, flower);
+  if (d.overviews) {
+    h += '<div class="overview-scroll">';
+    for (const ov of d.overviews) h += `<img class="overview-img" src="images/${encodeURI(ov)}" onclick="openLightbox('images/${encodeURI(ov)}','${flower}')">`;
+    h += '</div>';
+  } else if (d.overview) {
+    h += `<div class="overview-scroll"><img class="overview-img" src="images/${encodeURI(d.overview)}" onclick="openLightbox('images/${encodeURI(d.overview)}','${flower}')"></div>`;
+  }
+  h += renderGrid(cat, flower, { ...d, colors: filtered });
+  el.innerHTML = h;
+  window.scrollTo(0, 0);
+}
+
+// ═══════════════ RENDER GRID ═══════════════
+function renderGrid(cat, flower, data) {
+  const esc = s => s.replace(/'/g, "\\'");
+  let h = '<div class="product-grid">';
+  for (const c of data.colors) {
+    const key = `${cat}|${flower}|${c.name}`;
+    const sel = moodboard.some(m => m.key === key);
+    const json = JSON.stringify(c).replace(/"/g, '&quot;');
+    if (c.img) {
+      h += `<div class="card${sel?' selected':''}" data-key="${key}">
+        <div class="card-visual"><img src="images/${encodeURI(c.img)}" alt="${flower} — ${c.name}" loading="lazy" onclick="openLightbox('images/${encodeURI(c.img)}','${flower} — ${c.name}')"></div>
+        <div class="card-body"><div class="card-flower">${flower}</div><div class="card-color-name">${c.name}</div>${data.size?`<div class="card-size-label">${data.size}</div>`:''}</div>
+        <button class="card-add" onclick="event.stopPropagation();toggleMB(event,'${esc(cat)}','${esc(flower)}',${json},'${data.size||''}')">${sel?'✓':'+'}</button>
+      </div>`;
+    } else if (c.colorHex) {
+      h += `<div class="card${sel?' selected':''}" data-key="${key}" onclick="toggleMB(event,'${esc(cat)}','${esc(flower)}',${json},'${data.size||''}')">
+        <div class="card-visual"><div class="card-swatch" style="background:${c.colorHex}"></div></div>
+        <div class="card-body"><div class="card-flower">${flower}</div><div class="card-color-name">${c.name}</div>${data.size?`<div class="card-size-label">${data.size}</div>`:''}</div>
+        <button class="card-add">${sel?'✓':'+'}</button>
+      </div>`;
+    }
+  }
+  return h + '</div>';
+}
+
+// ═══════════════ MOODBOARD LOGIC ═══════════════
+function toggleMB(e, cat, flower, color, size) {
+  e.stopPropagation();
+  const key = `${cat}|${flower}|${color.name}`;
+  const i = moodboard.findIndex(m => m.key === key);
+  if (i >= 0) moodboard.splice(i, 1);
+  else moodboard.push({ key, cat, name: flower, color: color.name, img: color.img||null, colorHex: color.colorHex||null, size: size||null });
+  saveMB();
+  updateMoodboardUI();
+  document.querySelectorAll(`.card[data-key="${CSS.escape(key)}"]`).forEach(card => {
+    const inMb = moodboard.some(m => m.key === key);
+    card.classList.toggle('selected', inMb);
+    const btn = card.querySelector('.card-add');
+    if (btn) btn.textContent = inMb ? '✓' : '+';
+  });
+}
+function removeMB(key) {
+  moodboard = moodboard.filter(m => m.key !== key);
+  saveMB();
+  updateMoodboardUI();
+  document.querySelectorAll(`.card[data-key="${CSS.escape(key)}"]`).forEach(card => {
+    card.classList.remove('selected');
+    const btn = card.querySelector('.card-add');
+    if (btn) btn.textContent = '+';
+  });
+}
+function clearMoodboard() {
+  if (!moodboard.length || !confirm('Alle Einträge entfernen?')) return;
+  moodboard = [];
+  saveMB();
+  updateMoodboardUI();
+  document.querySelectorAll('.card.selected').forEach(c => {
+    c.classList.remove('selected');
+    const b = c.querySelector('.card-add');
+    if (b) b.textContent = '+';
+  });
+}
+function saveMB() { localStorage.setItem('fc_moodboard', JSON.stringify(moodboard)); }
+
+function updateMoodboardUI() {
+  document.getElementById('mb-badge').textContent = moodboard.length || '';
+  const el = document.getElementById('mb-items');
+  const ft = document.getElementById('mb-footer');
+  if (!moodboard.length) {
+    el.innerHTML = `<div class="mb-empty">
+      <div class="mb-empty-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg></div>
+      <p><strong>Dein Moodboard ist leer</strong><br>Klicke auf + bei einem Produkt,<br>um es hier hinzuzufügen.</p>
+    </div>`;
+    ft.style.display = 'none';
+    return;
+  }
+  ft.style.display = 'flex';
+  let h = '<div class="mb-grid">';
+  for (const it of moodboard) {
+    const vis = it.img
+      ? `<img src="images/${encodeURI(it.img)}" alt="${it.name}">`
+      : `<div class="swatch" style="background:${it.colorHex}"></div>`;
+    h += `<div class="mb-grid-item">
+      ${vis}
+      <button class="remove-x" onclick="event.stopPropagation();removeMB('${it.key.replace(/'/g, "\\'")}')">&times;</button>
+      <div class="mb-grid-item-label">${it.name} · ${it.color}</div>
+    </div>`;
+  }
+  el.innerHTML = h + '</div>';
+}
+
+function toggleMoodboard() {
+  moodboardOpen = !moodboardOpen;
+  document.getElementById('mb-panel').classList.toggle('open', moodboardOpen);
+  updateMoodboardUI();
+}
+
+// ═══════════════ SHARE ═══════════════
+function shareMoodboard() {
+  if (!moodboard.length) return;
+  const data = moodboard.map(m => ({ name:m.name, color:m.color, img:m.img, colorHex:m.colorHex, size:m.size }));
+  const enc = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+  let url = location.origin + location.pathname + '?moodboard=' + enc;
+  if (moodboardName) url += '&name=' + encodeURIComponent(moodboardName);
+  document.getElementById('share-url').value = url;
+  document.getElementById('share-modal').classList.add('open');
+  document.getElementById('copy-feedback').textContent = '';
+}
+function copyShareLink() {
+  const inp = document.getElementById('share-url');
+  inp.select();
+  navigator.clipboard.writeText(inp.value).then(() => {
+    document.getElementById('copy-feedback').textContent = 'Link kopiert!';
+  });
+}
+function closeShareModal() { document.getElementById('share-modal').classList.remove('open'); }
+
+// ═══════════════ PDF ═══════════════
+function downloadPDF() {
+  if (!moodboard.length) return;
+  const name = moodboardName || 'Moodboard';
+  const date = new Date().toLocaleDateString('de-CH', { year:'numeric', month:'long', day:'numeric' });
+  const items = moodboard.map(it => {
+    const vis = it.img
+      ? `<img src="images/${encodeURI(it.img)}" style="width:100%;aspect-ratio:1;object-fit:contain;background:#faf8f4;padding:16px;">`
+      : `<div style="width:100%;aspect-ratio:1;background:${it.colorHex};"></div>`;
+    return `<div class="item">
+      ${vis}
+      <div class="info">
+        <div class="name">${it.name}</div>
+        <div class="detail">${it.color}${it.size?' · '+it.size:''}</div>
+      </div>
+    </div>`;
+  }).join('');
+  const w = window.open('','_blank');
+  w.document.write(`<!DOCTYPE html><html><head><title>${name} — Forever Collective</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;margin:0;padding:0;color:#1a1816;background:#f8f7f4}
+.page{max-width:800px;margin:0 auto;padding:50px 40px 60px}
+.header{text-align:center;margin-bottom:2.5rem}
+.header img{height:18px;opacity:0.6;margin-bottom:1.5rem}
+.header-line{width:28px;height:1px;background:#d4d0c8;margin:0 auto 1.2rem}
+.header h1{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:#1a1816;margin-bottom:0.3rem}
+.header p{font-size:10px;color:#aaa;letter-spacing:0.12em;text-transform:uppercase}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.item{background:#fff;border-radius:10px;overflow:hidden;break-inside:avoid;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
+.info{padding:9px 12px;border-top:1px solid #f0eeea}
+.name{font-size:12px;font-weight:500;color:#1a1816}
+.detail{font-size:10px;color:#9a958b;margin-top:1px}
+.footer{text-align:center;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid #e8e5de}
+.footer img{height:14px;opacity:0.35;margin-bottom:0.4rem}
+.footer p{font-size:9px;color:#b5b0a4;letter-spacing:0.08em}
+@media print{
+  body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page{padding:25px 20px 30px}
+  .item{box-shadow:none;border:1px solid #eee}
+}
+</style></head><body>
+<div class="page">
+  <div class="header">
+    <img src="images/logo.png" alt="Forever Collective">
+    <div class="header-line"></div>
+    <h1>${name}</h1>
+    <p>${moodboard.length} Produkt${moodboard.length!==1?'e':''} &middot; ${date}</p>
+  </div>
+  <div class="grid">${items}</div>
+  <div class="footer">
+    <img src="images/logo.png" alt="Forever Collective">
+    <p>forever-collective.com</p>
+  </div>
+</div>
+<script>window.onload=function(){setTimeout(function(){window.print()},500)}<\/script>
+</body></html>`);
+  w.document.close();
+}
+
+// ═══════════════ LIGHTBOX ═══════════════
+function openLightbox(src, label) {
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lb-caption').textContent = label;
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeLightbox(); closeShareModal(); if (moodboardOpen) toggleMoodboard(); }
+});
+
+updateMoodboardUI();
+</script>
+</body>
+</html>
